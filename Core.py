@@ -13,14 +13,20 @@ from pygame.locals import *
 import math
 
 
+#MAP DRAW METHOD
+def mapDraw(window, image):
+    for i in range(0,window.get_width(),image.get_width()):
+        for j in range(0,window.get_height(), image.get_height()):
+            window.blit(image,Vector2(i,j))
+
 #UPDATE METHOD
 def update(dt):
     pass
 
 
 #DRAW METHOD
-def draw(window):
-    pass
+def draw(window, image):
+    mapDraw(window, image)
 
 
 
@@ -34,6 +40,9 @@ font = pygame.font.SysFont('impact', 30, False, False)
 state = "run"
 data = [[],[],[],[]]
 map = []
+sprite = "Sprite-0001.jpg"
+image = pygame.image.load(sprite)
+
 
 # timing
 fps = 60
@@ -54,7 +63,7 @@ while state != "quit":
             state = "quit"
 
     update(dt)
-    draw(window)
+    draw(window, image)
 
 
     
