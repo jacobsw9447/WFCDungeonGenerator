@@ -24,13 +24,13 @@ def Proccessing(images, dataTable):
     #rotate current structs
     for i in range(images.__len__()):
         newImg = images[i]
-        tempData=dataTable[i].copy()
-        for j in range(0,360,90):
-             tempImg = pygame.transform.rotate(newImg,-j)
-             for k in range(int(j/89)):
-                 #rotate the data for mapping connections
-                 tempData.append(tempData.pop(0))
-             dictData.append(SpriteHolder.ImageData(tempImg,tempData))
+        tempData=dataTable[i]
+        for j in range(4):
+            tempImg = pygame.transform.rotate(newImg,-j*90)
+            tempD = tempData.copy()
+            tempD.append(tempD.pop(0))
+            dictData.append(SpriteHolder.ImageData(tempImg,tempData))
+            tempData = tempD
     return dictData
 
 
