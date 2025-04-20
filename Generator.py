@@ -33,6 +33,9 @@ def Proccessing(images, dataTable):
             tempData = tempD
     return dictData
 
+#takes the array of ImageData and turns it into a 2-D array of sprite locations by use of integers
+def Generation(data):
+    map=[]
 
-def Generation(data, map):
-    pass
+
+    return map

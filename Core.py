@@ -60,7 +60,7 @@ imageVarData = [["aba","aba","aaa","aaa"],
 testDataStruct = gen.Proccessing(image,imageVarData)
 for d in testDataStruct:
     print(d.passConnects())
-
+map = gen.Generation()
 # timing
 fps = 60
 dt = 1/fps
