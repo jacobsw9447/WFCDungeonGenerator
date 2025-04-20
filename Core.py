@@ -16,72 +16,104 @@ import Generator as gen
 import SpriteHolder
 
 
-#MAP DRAW METHOD
+# mapDraw - Draws the map.
+# RETURNS
+#               none.
+# PARAMETERS
+#   window:     PyGame window object
+#   imageArr:   Image dictionary recieved from Generator.Processing()
 def mapDraw(window, imageArr):
     x=0
     image = imageArr[x].passImage()
+
+    # Iterate through each tile position and draw.
     for i in range(0,window.get_width(),image.get_width()):
         for j in range(0,window.get_height(), image.get_height()):
+            # Grab image for this tile.
             image = imageArr[x].passImage()
+
+            # Set x-position back to beginning if we reach the end of a line.
             if x>=imageArr.__len__()-1:
                 x=0
+            
+            # Draw the tile and advance x-position.
             window.blit(image,Vector2(i,j))
             x+=1
 
-#UPDATE METHOD
+# update    -   Updates the gamestate.
+# RETURNS
+#               none.
+# PARAMETERS
+#   dt:         Delta time. (Time since last frame)
 def update(dt):
     pass
 
 
-#DRAW METHOD
+# draw  -   Draws the map.
+# RETURNS
+#               none.
+# PARAMETERS
+#   window:     PyGame window object
+#   image:      Image dictionary recieved from Generator.Processing()
 def draw(window, image):
     mapDraw(window, image)
 
 
 
-
 #-------------------------------START OF GAMELOOP CODE-----------------------------------------------------------
+# Set basic parameters and initalize PyGame.
 pygame.init()
 width, height = 1000,800
 window = pygame.display.set_mode([width, height])
 font = pygame.font.SysFont('impact', 30, False, False)
+
 #STARTING VARIABLES
 state = "run"
 data = [[],[],[],[]]
 map = []
 sprite = "BasicSpriteSheet01.png"
 #image = pygame.image.load(sprite)
+
+# Create spritesheet and get all tile images in an array ("images")
 ss = spritesheet.spritesheet(sprite)
 image = ss.images_at([(0, 0, 32, 32),(32, 0, 32, 32),(64, 0, 32, 32),(96, 0, 32, 32)])
+
+# Tile connections matrix
 imageVarData = [["aba","aba","aaa","aaa"],
                 ["aba","aba","aba","aaa"],
                 ["aaa","aaa","aaa","aaa"],
                 ["aba","aba","aba","aba"]]
+
+# Process the tiles extracted in the previous step in order to get rotated variants.
 testDataStruct = gen.Proccessing(image,imageVarData)
+
+# For testing: print the connections
 for d in testDataStruct:
     print(d.passConnects())
-map = gen.Generation()
-# timing
+
+# Generate the map.
+map = gen.Generation(testDataStruct)
+
+# Timing parameters.
+# Gamestate updates occur once per frame.
 fps = 60
 dt = 1/fps
 clock = pygame.time.Clock()
 
-#RUN LOOP
+#RUN MAIN LOOP
 while state != "quit":
     pygame.display.update()
     clock.tick(fps)
+
     #clears screen with a black background
     window.fill([0,0,0])
 
-    #EVENTS
+    # HANDLE EVENTS
     key = pygame.key.get_pressed()
     while event := pygame.event.poll():
         if event.type == pygame.QUIT or event.type == KEYDOWN and event.key == K_ESCAPE:
             state = "quit"
 
+    # Update gamestate and draw the map.
     update(dt)
     draw(window, testDataStruct)
-
-
-    
-
