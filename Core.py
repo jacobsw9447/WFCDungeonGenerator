@@ -11,6 +11,7 @@ import pygame
 from pygame.math import Vector2
 from pygame.locals import *
 import math
+import spritesheet
 
 
 #MAP DRAW METHOD
@@ -40,8 +41,14 @@ font = pygame.font.SysFont('impact', 30, False, False)
 state = "run"
 data = [[],[],[],[]]
 map = []
-sprite = "Sprite-0001.jpg"
-image = pygame.image.load(sprite)
+sprite = "BasicSpriteSheet01.png"
+#image = pygame.image.load(sprite)
+ss = spritesheet.spritesheet(sprite)
+image = ss.images_at([(0, 0, 32, 32),(33, 0, 32, 32),(65, 0, 32, 32),(97, 0, 32, 32)])
+imageVarData = [["aba","aba","aaa","aaa"],
+                ["aba","aba","aba","aaa"],
+                ["aaa","aaa","aaa","aaa"],
+                ["aba","aba","aba","aba"]]
 
 # timing
 fps = 60
@@ -62,7 +69,7 @@ while state != "quit":
             state = "quit"
 
     update(dt)
-    draw(window, image)
+    draw(window, image[1])
 
 
     

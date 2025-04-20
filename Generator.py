@@ -9,6 +9,13 @@ from pygame.math import Vector2
 from pygame.locals import *
 import math
 
+importedInfo = []
+
+def get_data(data):
+    #data should come in as a dict list of strings
+    importedInfo = data
+    
+    
 
 def Proccessing(data):
     pass
