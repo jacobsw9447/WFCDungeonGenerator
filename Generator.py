@@ -8,17 +8,30 @@ import pygame
 from pygame.math import Vector2
 from pygame.locals import *
 import math
+import SpriteHolder
 
 importedInfo = []
 
 def get_data(data):
     #data should come in as a dict list of strings
     importedInfo = data
-    
-    
 
-def Proccessing(data):
-    pass
+    
+#generate a new dictionary with the new rotated data
+def Proccessing(images, dataTable):
+    #new dictionary of data
+    dictData = []
+    #rotate current structs
+    for i in range(images.__len__()):
+        newImg = images[i]
+        tempData=dataTable[i].copy()
+        for j in range(0,360,90):
+             tempImg = pygame.transform.rotate(newImg,-j)
+             for k in range(int(j/89)):
+                 #rotate the data for mapping connections
+                 tempData.append(tempData.pop(0))
+             dictData.append(SpriteHolder.ImageData(tempImg,tempData))
+    return dictData
 
 
 def Generation(data, map):

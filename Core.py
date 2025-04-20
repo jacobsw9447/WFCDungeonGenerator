@@ -12,13 +12,21 @@ from pygame.math import Vector2
 from pygame.locals import *
 import math
 import spritesheet
+import Generator as gen
+import SpriteHolder
 
 
 #MAP DRAW METHOD
-def mapDraw(window, image):
+def mapDraw(window, imageArr):
+    x=0
+    image = imageArr[x].passImage()
     for i in range(0,window.get_width(),image.get_width()):
         for j in range(0,window.get_height(), image.get_height()):
+            image = imageArr[x].passImage()
+            if x>=imageArr.__len__()-1:
+                x=0
             window.blit(image,Vector2(i,j))
+            x+=1
 
 #UPDATE METHOD
 def update(dt):
@@ -44,11 +52,14 @@ map = []
 sprite = "BasicSpriteSheet01.png"
 #image = pygame.image.load(sprite)
 ss = spritesheet.spritesheet(sprite)
-image = ss.images_at([(0, 0, 32, 32),(33, 0, 32, 32),(65, 0, 32, 32),(97, 0, 32, 32)])
+image = ss.images_at([(0, 0, 32, 32),(32, 0, 32, 32),(64, 0, 32, 32),(96, 0, 32, 32)])
 imageVarData = [["aba","aba","aaa","aaa"],
                 ["aba","aba","aba","aaa"],
                 ["aaa","aaa","aaa","aaa"],
                 ["aba","aba","aba","aba"]]
+testDataStruct = gen.Proccessing(image,imageVarData)
+for d in testDataStruct:
+    print(d.passConnects())
 
 # timing
 fps = 60
@@ -69,7 +80,7 @@ while state != "quit":
             state = "quit"
 
     update(dt)
-    draw(window, image[1])
+    draw(window, testDataStruct)
 
 
     

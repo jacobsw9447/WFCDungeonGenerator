@@ -9,6 +9,7 @@ import pygame
 
 class spritesheet(object):
     def __init__(self, filename):
+        message = "SpriteSheet shit the bed"
         try:
             self.sheet = pygame.image.load(filename).convert()
         except (pygame.error, message):
