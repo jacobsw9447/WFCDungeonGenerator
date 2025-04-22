@@ -85,7 +85,7 @@ imageVarData = [["aba","aba","aaa","aaa"],
                 ["aba","aba","aba","aba"]]
 
 # Process the tiles extracted in the previous step in order to get rotated variants.
-testDataStruct = gen.Proccessing(image,imageVarData)
+testDataStruct = gen.Processing(image,imageVarData)
 
 # For testing: print the connections
 for d in testDataStruct:

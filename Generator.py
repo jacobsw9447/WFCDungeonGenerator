@@ -28,7 +28,7 @@ def get_data(data):
 # PARAMETERS
 #   images:         list of images
 #   dataTable:      
-def Proccessing(images, dataTable):
+def Processing(images, dataTable):
     #new dictionary of data
     dictData = []
 
