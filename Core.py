@@ -22,7 +22,7 @@ import SpriteHolder
 # PARAMETERS
 #   window:     PyGame window object
 #   imageArr:   Image dictionary recieved from Generator.Processing()
-def mapDraw(window, imageArr):
+def tilesDraw(window, imageArr):
     x=0
     image = imageArr[x].passImage()
 
@@ -55,8 +55,14 @@ def update(dt):
 # PARAMETERS
 #   window:     PyGame window object
 #   image:      Image dictionary recieved from Generator.Processing()
-def draw(window, image):
-    mapDraw(window, image)
+def mapDraw(window, mapArray, tileData, tileSize):
+    height, width = 0,0
+    for line in mapArray:
+        for block in line:
+            window.blit(tileData[block].passImage(), Vector2(width, height))
+            width+=tileSize
+        height+=tileSize
+        width = 0
 
 
 
@@ -86,14 +92,13 @@ imageVarData = [["aba","aba","aaa","aaa"],
 
 # Process the tiles extracted in the previous step in order to get rotated variants.
 testDataStruct = gen.Processing(image,imageVarData)
-
 # For testing: print the connections
 for d in testDataStruct:
     print(d.passConnects())
 
 # Generate the map.
-map = gen.Generation(testDataStruct)
-
+map = gen.Generation(testDataStruct,(width,height),32)
+print(map)
 # Timing parameters.
 # Gamestate updates occur once per frame.
 fps = 60
@@ -116,4 +121,4 @@ while state != "quit":
 
     # Update gamestate and draw the map.
     update(dt)
-    draw(window, testDataStruct)
+    mapDraw(window, map, testDataStruct, 32)

@@ -9,6 +9,7 @@ from pygame.math import Vector2
 from pygame.locals import *
 import math
 import SpriteHolder
+import random
 
 importedInfo = []
 
@@ -57,8 +58,28 @@ def Processing(images, dataTable):
 #                   A 2D array of integers. ?
 # PARAMETERS
 #   data:           ImageData (SpriteHolder.py)
-def Generation(data):
+def Generation(data, screen, tileSize):
     # Placeholder
-    map=[]
-    # ...
+    tiles = (int(screen[0]/tileSize),int(screen[1]/tileSize))
+    print(tiles)
+    #Generate the map size for the size of the screen/sprite size
+    map = [[-1]*tiles[0]]*tiles[1]
+    mapHeight = map.__len__()-1
+    for i in range(mapHeight): # vertical = i
+        mapWidth = map[i].__len__()-1
+        for j in range(map[i].__len__()-1): # horizontal = j
+          # check to see if at edge of map/out of range on looks
+            if i>1:
+                # look up
+                pass
+            elif i<mapHeight:
+                # look down
+                pass
+            if j>1:
+                # look left
+                pass
+            if j<mapWidth:
+                # look right
+                pass
+
     return map
