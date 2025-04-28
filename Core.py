@@ -69,7 +69,7 @@ def mapDraw(window, mapArray, tileData, tileSize):
 #-------------------------------START OF GAMELOOP CODE-----------------------------------------------------------
 # Set basic parameters and initalize PyGame.
 pygame.init()
-width, height = 1000,800
+width, height = 640,640
 window = pygame.display.set_mode([width, height])
 font = pygame.font.SysFont('impact', 30, False, False)
 
@@ -86,7 +86,7 @@ image = ss.images_at([(0, 0, 32, 32),(32, 0, 32, 32),(64, 0, 32, 32),(96, 0, 32,
 
 # Tile connections matrix
 imageVarData = [["aba","aba","aaa","aaa"],
-                ["aba","aba","aba","aaa"],
+                ["aba","aba","aaa","aba"],
                 ["aaa","aaa","aaa","aaa"],
                 ["aba","aba","aba","aba"]]
 

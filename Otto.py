@@ -11,13 +11,18 @@ import pygame
 from pygame.math import Vector2
 from pygame.locals import *
 import math
+import spritesheet
+import Generator as gen
 
 
 #MAP DRAW METHOD
 def mapDraw(window, image):
-    for i in range(0,window.get_width(),image.get_width()):
-        for j in range(0,window.get_height(), image.get_height()):
-            window.blit(image,Vector2(i,j))
+    starter = image[0]
+    iter=0
+    for i in range(0,window.get_width(),32):
+        for j in range(0,window.get_height(), 32):
+            window.blit(image[iter%image.__len__()].passImage(),Vector2(i,j))
+            iter+=1
 
 #UPDATE METHOD
 def update(dt):
@@ -40,8 +45,23 @@ font = pygame.font.SysFont('impact', 30, False, False)
 state = "run"
 data = [[],[],[],[]]
 map = []
-sprite = "Sprite-0001.jpg"
-image = pygame.image.load(sprite)
+sprite = "BasicSpriteSheet01.png"
+#image = pygame.image.load(sprite)
+
+# Create spritesheet and get all tile images in an array ("images")
+ss = spritesheet.spritesheet(sprite)
+image = ss.images_at([(0, 0, 32, 32),(32, 0, 32, 32),(64, 0, 32, 32),(96, 0, 32, 32)])
+
+# Tile connections matrix
+imageVarData = [["aba","aba","aaa","aaa"],
+                ["aba","aba","aba","aaa"],
+                ["aaa","aaa","aaa","aaa"],
+                ["aba","aba","aba","aba"]]
+testDataStruct = gen.Processing(image,imageVarData)
+iter = 0
+for t in testDataStruct:
+    print(str(iter) + str(t.passConnects()))
+    iter+=1
 
 # timing
 fps = 60
@@ -60,9 +80,8 @@ while state != "quit":
     while event := pygame.event.poll():
         if event.type == pygame.QUIT or event.type == KEYDOWN and event.key == K_ESCAPE:
             state = "quit"
-
     update(dt)
-    draw(window, image)
+    draw(window, testDataStruct)
 
 
     

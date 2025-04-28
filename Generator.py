@@ -10,6 +10,7 @@ from pygame.locals import *
 import math
 import SpriteHolder
 import random
+import copy
 
 importedInfo = []
 
@@ -43,7 +44,8 @@ def Processing(images, dataTable):
             # Further explanation for this block is required.
             # Sorta kinda understand what's going on here, but not super confident.
             # - WJ
-            tempImg = pygame.transform.rotate(newImg,-j*90)
+            tempImg = pygame.transform.rotate(newImg,j*90)
+            print(j*90)
             tempD = tempData.copy()
             tempD.append(tempD.pop(0))
             dictData.append(SpriteHolder.ImageData(tempImg,tempData))
@@ -60,26 +62,70 @@ def Processing(images, dataTable):
 #   data:           ImageData (SpriteHolder.py)
 def Generation(data, screen, tileSize):
     # Placeholder
+    #random.seed(1)
     tiles = (int(screen[0]/tileSize),int(screen[1]/tileSize))
     print(tiles)
+    map = []
     #Generate the map size for the size of the screen/sprite size
-    map = [[-1]*tiles[0]]*tiles[1]
-    mapHeight = map.__len__()-1
-    for i in range(mapHeight): # vertical = i
-        mapWidth = map[i].__len__()-1
+    for t in range(tiles[1]):
+        map.append([])
+        for s in range(tiles[0]):
+            map[t].append(-1)
+    mapHeight = map.__len__()
+    tempMap = []
+    for i in range(mapHeight-1): # vertical = i
+        mapWidth = map[i].__len__()
+        # for k in range(tempMap.__len__()):
+        #     map[k] = tempMap[k]
         for j in range(map[i].__len__()-1): # horizontal = j
           # check to see if at edge of map/out of range on looks
-            if i>1:
-                # look up
+            requirements = ["!!!","!!!","!!!","!!!"]
+            if i>0:
+                check = map[i-1][j]
+                if check != -1:
+                    requirements[0] = copy.deepcopy(data[check].passConnects()[2])
+                    print("Look Up = "  + str(data[check].passConnects()))
+                    pass
+                #look up
                 pass
-            elif i<mapHeight:
+            if i<=mapHeight:
+                check = map[i+1][j]
+                if check != -1:
+                    requirements[2] = copy.deepcopy(data[check].passConnects()[0])
+                    pass
                 # look down
                 pass
-            if j>1:
+            if j>0:
+                check = map[i][j-1]
+                if check != -1:
+                    requirements[3] = copy.deepcopy(data[check].passConnects()[1])
+                    print("Look Left = "  + str(data[check].passConnects()))
+                    pass
                 # look left
                 pass
-            if j<mapWidth:
+            if j<=mapWidth:
+                check = map[i][j+1]
+                if check != -1:
+                    requirements[1] = copy.deepcopy(data[check].passConnects()[3])
+                    pass               
                 # look right
                 pass
+            iterD = -1
+            possibleData = []
+            for d in data:
+                iterD+=1
+                faces = d.passConnects()
+                match = True
+                for p in range(4):
+                    if requirements[p] != "!!!" and requirements[p] != faces[p]:
+                        match = False
+                if match:
+                    possibleData.append(iterD)
+                    print(str(faces)+ "   " + str(requirements))
+            print(possibleData)
+            if possibleData.__len__()>0:
+                map[i][j] = copy.deepcopy(possibleData[random.randint(0,possibleData.__len__()-1)])
+        print(str(map[i])+"\n\n")
+        #tempMap.append(map[i].copy())
 
     return map
