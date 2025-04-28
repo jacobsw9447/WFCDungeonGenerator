@@ -59,8 +59,9 @@ def mapDraw(window, mapArray, tileData, tileSize):
     height, width = 0,0
     for line in mapArray:
         for block in line:
-            window.blit(tileData[block].passImage(), Vector2(width, height))
-            width+=tileSize
+            if block != -1:
+                window.blit(tileData[block].passImage(), Vector2(width, height))
+                width+=tileSize
         height+=tileSize
         width = 0
 
@@ -69,7 +70,7 @@ def mapDraw(window, mapArray, tileData, tileSize):
 #-------------------------------START OF GAMELOOP CODE-----------------------------------------------------------
 # Set basic parameters and initalize PyGame.
 pygame.init()
-width, height = 640,640
+width, height = 1000,800
 window = pygame.display.set_mode([width, height])
 font = pygame.font.SysFont('impact', 30, False, False)
 
@@ -104,12 +105,16 @@ print(map)
 fps = 60
 dt = 1/fps
 clock = pygame.time.Clock()
-
+t = 0
 #RUN MAIN LOOP
 while state != "quit":
     pygame.display.update()
     clock.tick(fps)
-
+    if t < 5:
+        t+=dt
+    else:
+        map = gen.Generation(testDataStruct,(width,height),32)
+        t = 0
     #clears screen with a black background
     window.fill([0,0,0])
 
