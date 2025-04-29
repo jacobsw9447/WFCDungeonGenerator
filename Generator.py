@@ -65,7 +65,7 @@ def Processing(images, dataTable):
 # PARAMETERS
 #   data:           ImageData (SpriteHolder.py)
 def Generation(data, screen, tileSize):
-    #random.seed(1)  #random seed used for testing.
+    random.seed(3)  #random seed used for testing.
     # sets the ammound of tiles for the screen size
     tiles = (int(screen[0]/tileSize),int(screen[1]/tileSize))
     # initiates the map of integers
@@ -78,10 +78,10 @@ def Generation(data, screen, tileSize):
             map[t].append(-1)
     # variable for map height
     mapHeight = map.__len__()
-    for i in range(mapHeight-1): # vertical = i
+    for i in range(mapHeight): # vertical = i
         #variable for map width
         mapWidth = map[i].__len__()
-        for j in range(map[i].__len__()-1): # horizontal = j
+        for j in range(map[i].__len__()): # horizontal = j
           # check to see if at edge of map/out of range on looks
             #sets a default value for all faces
             requirements = ["!!!","!!!","!!!","!!!"]
@@ -89,30 +89,22 @@ def Generation(data, screen, tileSize):
                 check = map[i-1][j]
                 if check != -1:
                     requirements[0] = copy.deepcopy(data[check].passConnects()[2])
-                    pass
-                #look up for top face requirement
-                pass
-            if i<=mapHeight:
+                    #look up for top face requirement
+            if i+1<mapHeight:
                 check = map[i+1][j]
                 if check != -1:
                     requirements[2] = copy.deepcopy(data[check].passConnects()[0])
-                    pass
-                # look down for bottom face requirement
-                pass
+                    # look down for bottom face requirement
             if j>0:
                 check = map[i][j-1]
                 if check != -1:
                     requirements[3] = copy.deepcopy(data[check].passConnects()[1])
-                    pass
                 # look left for left face requirement
-                pass
-            if j<=mapWidth:
+            if j+1<mapWidth:
                 check = map[i][j+1]
                 if check != -1:
                     requirements[1] = copy.deepcopy(data[check].passConnects()[3])
-                    pass               
                 # look right for right face requirement
-                pass
             # iterator for the list of all tiles
             iterD = -1
             #list of potential tiles

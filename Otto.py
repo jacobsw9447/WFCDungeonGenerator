@@ -45,19 +45,41 @@ font = pygame.font.SysFont('impact', 30, False, False)
 state = "run"
 data = [[],[],[],[]]
 map = []
-sprite = "BasicSpriteSheet01.png"
+spriteset1 = "BasicSpriteSheet01.png"
+spriteset1Indexes = [(0, 0, 32, 32),(32, 0, 32, 32),
+                     (64, 0, 32, 32),(96, 0, 32, 32)
+                     ]
+spriteset2 = "BasicSpriteSheet02.png"
+spriteset2Indexes = [(0, 0, 32, 32), (32, 0, 32, 32),
+                     (64, 0, 32, 32), (96, 0, 32, 32),
+                     (128,0,32,32), (160,0,32,32),
+                     (192,0,32,32),(224,0,32,32),
+                     (256,0,32,32),(288,0,32,32)
+                     ]
 #image = pygame.image.load(sprite)
 
 # Create spritesheet and get all tile images in an array ("images")
-ss = spritesheet.spritesheet(sprite)
-image = ss.images_at([(0, 0, 32, 32),(32, 0, 32, 32),(64, 0, 32, 32),(96, 0, 32, 32)])
+ss = spritesheet.spritesheet(spriteset2)
+image = ss.images_at(spriteset2Indexes)
 
 # Tile connections matrix
-imageVarData = [["aba","aba","aaa","aaa"],
-                ["aba","aba","aba","aaa"],
+imageVarData1 = [["aba","aba","aaa","aaa"],
+                ["aba","aba","aaa","aba"],
                 ["aaa","aaa","aaa","aaa"],
                 ["aba","aba","aba","aba"]]
-testDataStruct = gen.Processing(image,imageVarData)
+imageVarData2 = [
+	["aaa","aba","aaa","aaa"],
+	["aaa","aaa","aba","aba"],
+	["aaa","aba","aba","aba"],
+	["aaa","ddd","aaa","aba"],
+	["ddd","dfd","ddd","ddd"],
+	["dfd","dfd","ddd","dfd"],
+	["dfd","dfd","dfd","dfd"],
+	["aaa","ddd","aaa","aaa"],
+	["ddd","ddd","aaa","aaa"],
+	["aaa","aaa","aaa","aaa"]
+]
+testDataStruct = gen.Processing(image,imageVarData2)
 iter = 0
 for t in testDataStruct:
     print(str(iter) + str(t.passConnects()))
