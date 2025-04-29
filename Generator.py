@@ -23,13 +23,15 @@ def get_data(data):
     #data should come in as a dict list of strings
     importedInfo = data
 
+#checks if there is continuity between the faces and prints an error message
+def tester(s1,s2,dir):
+    if s1 != s2:
+        print(dir+ ": " +s1 + " is not equal to " +s2)
+
     
-# Processing - generate a new dictionary with the new rotated data.
-# RETURNS
-#                   dictionary list of strings.
-# PARAMETERS
-#   images:         list of images
-#   dataTable:      
+# Processing - generate a list with the new rotated sprites held in spriteholder objects.
+# RETURNS : list of spriteholder objects
+# PARAMETERS : images(list of images), dataTable(list of all faces for associated images)      
 def Processing(images, dataTable):
     #new dictionary of data
     dictData = []
@@ -60,10 +62,8 @@ def Processing(images, dataTable):
 
 # Generation - takes the array of ImageData and turns it into a 2-D array of
 #                   sprite locations by use of integers.
-# RETURNS
-#                   It returns the 2-D array of indexes for the positions of the tiles on screen.
-# PARAMETERS
-#   data:           ImageData (SpriteHolder.py)
+# RETURNS : 2-D array of integers associated with sprites
+# PARAMETERS : ImageData(dictionary of SpriteHolder Objects)
 def Generation(data, screen, tileSize):
     random.seed(3)  #random seed used for testing.
     # sets the ammound of tiles for the screen size
@@ -126,5 +126,7 @@ def Generation(data, screen, tileSize):
             # randomly select a tile out of the potentials and put the index in the map
             if possibleData.__len__()>0:
                 map[i][j] = copy.deepcopy(possibleData[random.randint(0,possibleData.__len__()-1)])
+            if j>0:
+                tester(data[map[i][j]].passConnects()[3],data[map[i][j-1]].passConnects()[1],"Left")
     # return the index map
     return map

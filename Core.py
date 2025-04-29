@@ -78,43 +78,45 @@ font = pygame.font.SysFont('impact', 30, False, False)
 state = "run"
 data = [[],[],[],[]]
 map = []
-spriteset1 = "BasicSpriteSheet01.png"
-spriteset1Indexes = [(0, 0, 32, 32),(32, 0, 32, 32),
+spriteset1 = ["BasicSpriteSheet01.png",[(0, 0, 32, 32),(32, 0, 32, 32),
                      (64, 0, 32, 32),(96, 0, 32, 32)
-                     ]
-spriteset2 = "BasicSpriteSheet02.png"
-spriteset2Indexes = [(0, 0, 32, 32), (32, 0, 32, 32),
+                     ],[["aba","aba","aaa","aaa"],
+                ["aba","aba","aaa","aba"],
+                ["aaa","aaa","aaa","aaa"],
+                ["aba","aba","aba","aba"]]
+                ]
+spriteset2 = ["BasicSpriteSheet02.png",[(0, 0, 32, 32), (32, 0, 32, 32),
                      (64, 0, 32, 32), (96, 0, 32, 32),
                      (128,0,32,32), (160,0,32,32),
                      (192,0,32,32),(224,0,32,32),
                      (256,0,32,32),(288,0,32,32)
-                     ]
+                     ],[
+                    ["aaa","aaa","aaa","aaa"],
+                    ["aaa","aaa","aba","aba"],
+                    ["aaa","aba","aba","aba"],
+                    ["aaa","xxx","aaa","aba"],
+                    ["xxx","xyx","xxx","xxx"],
+                    ["xyx","xyx","xxx","xyx"],
+                    ["xyx","xyx","xyx","xyx"],
+                    ["aaa","xxx","aaa","aaa"],
+                    ["xxx","xxx","aaa","aaa"],
+                    ["aaa","aaa","aaa","aaa"]
+                    ]
+            ]
+spriteset3 = ["BasicSpriteSheet02.png",[(0, 0, 32, 32), (32, 0, 32, 32),
+                     (64, 0, 32, 32), (96, 0, 32, 32)],
+                     [	["aaa","aaa","aaa","aaa"],
+	["aaa","aaa","aba","aba"],
+	["aaa","aba","aba","aba"],
+	["aaa","xxx","aaa","aba"]]]
 #image = pygame.image.load(sprite)
 
 # Create spritesheet and get all tile images in an array ("images")
-ss = spritesheet.spritesheet(spriteset2)
-image = ss.images_at(spriteset2Indexes)
-
-# Tile connections matrix
-imageVarData1 = [["aba","aba","aaa","aaa"],
-                ["aba","aba","aaa","aba"],
-                ["aaa","aaa","aaa","aaa"],
-                ["aba","aba","aba","aba"]]
-imageVarData2 = [
-	["aaa","aba","aaa","aaa"],
-	["aaa","aaa","aba","aba"],
-	["aaa","aba","aba","aba"],
-	["aaa","xxx","aaa","aba"],
-	["xxx","xyx","xxx","xxx"],
-	["xyx","xyx","xxx","xyx"],
-	["xyx","xyx","xyx","xyx"],
-	["aaa","xxx","aaa","aaa"],
-	["xxx","xxx","aaa","aaa"],
-	["aaa","aaa","aaa","aaa"]
-]
+ss = spritesheet.spritesheet(spriteset3[0])
+image = ss.images_at(spriteset3[1])
 
 # Process the tiles extracted in the previous step in order to get rotated variants.
-testDataStruct = gen.Processing(image,imageVarData2)
+testDataStruct = gen.Processing(image,spriteset3[2])
 # For testing: print the connections
 for d in testDataStruct:
     print(d.passConnects())
