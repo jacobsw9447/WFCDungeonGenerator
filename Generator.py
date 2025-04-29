@@ -65,64 +65,74 @@ def Processing(images, dataTable):
 # PARAMETERS
 #   data:           ImageData (SpriteHolder.py)
 def Generation(data, screen, tileSize):
-    # Placeholder
-    #random.seed(1)
+    #random.seed(1)  #random seed used for testing.
+    # sets the ammound of tiles for the screen size
     tiles = (int(screen[0]/tileSize),int(screen[1]/tileSize))
-    print(tiles)
+    # initiates the map of integers
     map = []
     #Generate the map size for the size of the screen/sprite size
     for t in range(tiles[1]):
         map.append([])
         for s in range(tiles[0]):
             map[t].append(-1)
+    # variable for map height
     mapHeight = map.__len__()
     for i in range(mapHeight-1): # vertical = i
+        #variable for map width
         mapWidth = map[i].__len__()
         for j in range(map[i].__len__()-1): # horizontal = j
           # check to see if at edge of map/out of range on looks
+            #sets a default value for all faces
             requirements = ["!!!","!!!","!!!","!!!"]
             if i>0:
                 check = map[i-1][j]
                 if check != -1:
                     requirements[0] = copy.deepcopy(data[check].passConnects()[2])
                     pass
-                #look up
+                #look up for top face requirement
                 pass
             if i<=mapHeight:
                 check = map[i+1][j]
                 if check != -1:
                     requirements[2] = copy.deepcopy(data[check].passConnects()[0])
                     pass
-                # look down
+                # look down for bottom face requirement
                 pass
             if j>0:
                 check = map[i][j-1]
                 if check != -1:
                     requirements[3] = copy.deepcopy(data[check].passConnects()[1])
                     pass
-                # look left
+                # look left for left face requirement
                 pass
             if j<=mapWidth:
                 check = map[i][j+1]
                 if check != -1:
                     requirements[1] = copy.deepcopy(data[check].passConnects()[3])
                     pass               
-                # look right
+                # look right for right face requirement
                 pass
+            # iterator for the list of all tiles
             iterD = -1
+            #list of potential tiles
             possibleData = []
+            # cycles through all tiles
             for d in data:
                 iterD+=1
+                # gets the face data for the tiles
                 faces = d.passConnects()
+                # default match true
                 match = True
                 for p in range(4):
+                    # if the face is not a default and the face does not match the tile
                     if requirements[p] != "!!!" and requirements[p] != faces[p]:
                         match = False
+                # if it is a possible solution for the tile put it in the potential tile list
                 if match:
                     possibleData.append(iterD)
                     print(str(faces)+ "   " + str(requirements))
-            print(possibleData)
+            # randomly select a tile out of the potentials and put the index in the map
             if possibleData.__len__()>0:
                 map[i][j] = copy.deepcopy(possibleData[random.randint(0,possibleData.__len__()-1)])
-
+    # return the index map
     return map
