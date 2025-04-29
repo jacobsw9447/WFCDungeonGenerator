@@ -39,16 +39,20 @@ def Processing(images, dataTable):
         newImg = images[i]
         tempData=dataTable[i]
 
-        # For each cardinal direction
+        # For loop to provide the 4 rotated tiles for each individual sprite
+        #   - This works for symetrical faces but asymetrical faces do not work properly right now.
+        #   - The rotation method is a bit confusing and looking at pygame documentation will help if you are still confused.
         for j in range(4):
-            # Further explanation for this block is required.
-            # Sorta kinda understand what's going on here, but not super confident.
-            # - WJ
+            # rotates the sprite into a new orientation
             tempImg = pygame.transform.rotate(newImg,j*90)
-            print(j*90)
+            # makes a deepcopy of the data
             tempD = tempData.copy()
+            # rotates the data in the array of faces
             tempD.append(tempD.pop(0))
+            #---------NEEDS TO IMPLEMENT A MIRRORING METHOD FOR ASYMETRICAL TILES---------------------
+            # appends the data to the new dictionary of tile sprites
             dictData.append(SpriteHolder.ImageData(tempImg,tempData))
+            # takes the face data and copies it for the next run.
             tempData = tempD
     
     return dictData
@@ -57,7 +61,7 @@ def Processing(images, dataTable):
 # Generation - takes the array of ImageData and turns it into a 2-D array of
 #                   sprite locations by use of integers.
 # RETURNS
-#                   A 2D array of integers. ?
+#                   It returns the 2-D array of indexes for the positions of the tiles on screen.
 # PARAMETERS
 #   data:           ImageData (SpriteHolder.py)
 def Generation(data, screen, tileSize):
@@ -72,11 +76,8 @@ def Generation(data, screen, tileSize):
         for s in range(tiles[0]):
             map[t].append(-1)
     mapHeight = map.__len__()
-    tempMap = []
     for i in range(mapHeight-1): # vertical = i
         mapWidth = map[i].__len__()
-        # for k in range(tempMap.__len__()):
-        #     map[k] = tempMap[k]
         for j in range(map[i].__len__()-1): # horizontal = j
           # check to see if at edge of map/out of range on looks
             requirements = ["!!!","!!!","!!!","!!!"]
@@ -84,7 +85,6 @@ def Generation(data, screen, tileSize):
                 check = map[i-1][j]
                 if check != -1:
                     requirements[0] = copy.deepcopy(data[check].passConnects()[2])
-                    print("Look Up = "  + str(data[check].passConnects()))
                     pass
                 #look up
                 pass
@@ -99,7 +99,6 @@ def Generation(data, screen, tileSize):
                 check = map[i][j-1]
                 if check != -1:
                     requirements[3] = copy.deepcopy(data[check].passConnects()[1])
-                    print("Look Left = "  + str(data[check].passConnects()))
                     pass
                 # look left
                 pass
@@ -125,7 +124,5 @@ def Generation(data, screen, tileSize):
             print(possibleData)
             if possibleData.__len__()>0:
                 map[i][j] = copy.deepcopy(possibleData[random.randint(0,possibleData.__len__()-1)])
-        print(str(map[i])+"\n\n")
-        #tempMap.append(map[i].copy())
 
     return map

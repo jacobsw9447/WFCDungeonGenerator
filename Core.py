@@ -18,7 +18,7 @@ import SpriteHolder
 
 # mapDraw - Draws the map.
 # RETURNS
-#               none.
+#               nothing
 # PARAMETERS
 #   window:     PyGame window object
 #   imageArr:   Image dictionary recieved from Generator.Processing()
@@ -42,7 +42,7 @@ def tilesDraw(window, imageArr):
 
 # update    -   Updates the gamestate.
 # RETURNS
-#               none.
+#               nothing
 # PARAMETERS
 #   dt:         Delta time. (Time since last frame)
 def update(dt):
@@ -51,7 +51,7 @@ def update(dt):
 
 # draw  -   Draws the map.
 # RETURNS
-#               none.
+#           nothing
 # PARAMETERS
 #   window:     PyGame window object
 #   image:      Image dictionary recieved from Generator.Processing()
