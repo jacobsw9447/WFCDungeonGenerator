@@ -85,26 +85,26 @@ def Generation(data, screen, tileSize):
           # check to see if at edge of map/out of range on looks
             #sets a default value for all faces
             requirements = ["!!!","!!!","!!!","!!!"]
+            #look up for top face requirement
             if i>0:
                 check = map[i-1][j]
                 if check != -1:
                     requirements[0] = copy.deepcopy(data[check].passConnects()[2])
-                    #look up for top face requirement
+            # look down for bottom face requirement
             if i+1<mapHeight:
                 check = map[i+1][j]
                 if check != -1:
                     requirements[2] = copy.deepcopy(data[check].passConnects()[0])
-                    # look down for bottom face requirement
+            # look left for left face requirement
             if j>0:
                 check = map[i][j-1]
                 if check != -1:
                     requirements[3] = copy.deepcopy(data[check].passConnects()[1])
-                # look left for left face requirement
+            # look right for right face requirement
             if j+1<mapWidth:
                 check = map[i][j+1]
                 if check != -1:
                     requirements[1] = copy.deepcopy(data[check].passConnects()[3])
-                # look right for right face requirement
             # iterator for the list of all tiles
             iterD = -1
             #list of potential tiles
