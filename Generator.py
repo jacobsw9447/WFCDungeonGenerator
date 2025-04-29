@@ -131,7 +131,6 @@ def Generation(data, screen, tileSize):
                 # if it is a possible solution for the tile put it in the potential tile list
                 if match:
                     possibleData.append(iterD)
-                    print(str(faces)+ "   " + str(requirements))
             # randomly select a tile out of the potentials and put the index in the map
             if possibleData.__len__()>0:
                 map[i][j] = copy.deepcopy(possibleData[random.randint(0,possibleData.__len__()-1)])

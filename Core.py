@@ -99,7 +99,6 @@ for d in testDataStruct:
 
 # Generate the map.
 map = gen.Generation(testDataStruct,(width,height),32)
-print(map)
 # Timing parameters.
 # Gamestate updates occur once per frame.
 fps = 60
