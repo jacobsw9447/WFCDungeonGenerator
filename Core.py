@@ -80,37 +80,45 @@ data = [[],[],[],[]]
 map = []
 
 #Spritesheets: [image, spriteLocations, faces]
-spriteset1 = ["BasicSpriteSheet01.png",[(0, 0, 32, 32),(32, 0, 32, 32),
-                     (64, 0, 32, 32),(96, 0, 32, 32)
-                     ],[["aba","aba","aaa","aaa"],
+spriteset1 = ["BasicSpriteSheet01.png",[
+                (0, 0, 32, 32),(32, 0, 32, 32),
+                (64, 0, 32, 32),(96, 0, 32, 32)
+                ],[
+                ["aba","aba","aaa","aaa"],
                 ["aba","aba","aaa","aba"],
                 ["aaa","aaa","aaa","aaa"],
-                ["aba","aba","aba","aba"]]
+                ["aba","aba","aba","aba"]
                 ]
-spriteset2 = ["BasicSpriteSheet02.png",[(0, 0, 32, 32), (32, 0, 32, 32),
-                     (64, 0, 32, 32), (96, 0, 32, 32),
-                     (128,0,32,32), (160,0,32,32),
-                     (192,0,32,32),(224,0,32,32),
-                     (256,0,32,32),(288,0,32,32)
-                     ],[
-                    ["aaa","aaa","aaa","aaa"],
-                    ["aaa","aaa","aba","aba"],
-                    ["aaa","aba","aba","aba"],
-                    ["aaa","xxx","aaa","aba"],
-                    ["xxx","xyx","xxx","xxx"],
-                    ["xyx","xyx","xxx","xyx"],
-                    ["xyx","xyx","xyx","xyx"],
-                    ["aaa","xxx","aaa","aaa"],
-                    ["xxx","xxx","aaa","aaa"],
-                    ["aaa","aaa","aaa","aaa"]
-                    ]
             ]
-spriteset3 = ["BasicSpriteSheet02.png",[(0, 0, 32, 32), (32, 0, 32, 32),
-                     (64, 0, 32, 32), (96, 0, 32, 32)],
-                     [	["aaa","aaa","aaa","aaa"],
-	["aaa","aaa","aba","aba"],
-	["aaa","aba","aba","aba"],
-	["aaa","xxx","aaa","aba"]]]
+spriteset2 = ["BasicSpriteSheet02.png",[
+                (0, 0, 32, 32), (32, 0, 32, 32),
+                (64, 0, 32, 32), (96, 0, 32, 32),
+                (128,0,32,32), (160,0,32,32),
+                (192,0,32,32),(224,0,32,32),
+                (256,0,32,32),(288,0,32,32)
+                ],[
+                ["aaa","aaa","aaa","aaa"],
+                ["aaa","aaa","aba","aba"],
+                ["aaa","aba","aba","aba"],
+                ["aaa","xxx","aaa","aba"],
+                ["xxx","xyx","xxx","xxx"],
+                ["xyx","xyx","xxx","xyx"],
+                ["xyx","xyx","xyx","xyx"],
+                ["aaa","xxx","aaa","aaa"],
+                ["xxx","xxx","aaa","aaa"],
+                ["aaa","aaa","aaa","aaa"]
+                ]
+            ]
+spriteset3 = ["BasicSpriteSheet02.png",
+              [(0, 0, 32, 32), (32, 0, 32, 32),
+                (64, 0, 32, 32), (96, 0, 32, 32)
+                ],[
+                ["aaa","aaa","aaa","aaa"],
+                ["aaa","aaa","aba","aba"],
+                ["aaa","aba","aba","aba"],
+                ["aaa","xxx","aaa","aba"]
+                ]
+            ]
 
 # Create spritesheet and get all tile images in an array ("images")
 ss = spritesheet.spritesheet(spriteset3[0])
