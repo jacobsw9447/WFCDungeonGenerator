@@ -74,6 +74,7 @@ def Generation(data, screen, tileSize):
     for t in range(tiles[1]):
         map.append([])
         for s in range(tiles[0]):
+            #default is -1 for all cells
             map[t].append(-1)
     # variable for map height
     mapHeight = map.__len__()
