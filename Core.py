@@ -78,6 +78,8 @@ font = pygame.font.SysFont('impact', 30, False, False)
 state = "run"
 data = [[],[],[],[]]
 map = []
+
+#Spritesheets: [image, spriteLocations, faces]
 spriteset1 = ["BasicSpriteSheet01.png",[(0, 0, 32, 32),(32, 0, 32, 32),
                      (64, 0, 32, 32),(96, 0, 32, 32)
                      ],[["aba","aba","aaa","aaa"],
@@ -109,7 +111,6 @@ spriteset3 = ["BasicSpriteSheet02.png",[(0, 0, 32, 32), (32, 0, 32, 32),
 	["aaa","aaa","aba","aba"],
 	["aaa","aba","aba","aba"],
 	["aaa","xxx","aaa","aba"]]]
-#image = pygame.image.load(sprite)
 
 # Create spritesheet and get all tile images in an array ("images")
 ss = spritesheet.spritesheet(spriteset3[0])
