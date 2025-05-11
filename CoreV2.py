@@ -13,6 +13,7 @@ from pygame.locals import *
 import math
 import spritesheet
 import Generator as gen
+import GeneratorV2 as gen
 import SpriteHolder
 
 
@@ -59,10 +60,8 @@ def mapDraw(window, mapArray, tileData, tileSize):
     height, width = 0,0
     for line in mapArray:
         for block in line:
-            if block != -1:
-                window.blit(tileData[block].passImage(), Vector2(width, height))
-                width+=tileSize
-            else:
+            if block != None and block.collapsed == True:
+                window.blit(tileData[block.image].passImage(), Vector2(width, height))
                 width+=tileSize
         height+=tileSize
         width = 0
@@ -72,7 +71,7 @@ def mapDraw(window, mapArray, tileData, tileSize):
 #-------------------------------START OF GAMELOOP CODE-----------------------------------------------------------
 # Set basic parameters and initalize PyGame.
 pygame.init()
-width, height = 1000,800
+width, height = 500,400
 window = pygame.display.set_mode([width, height])
 font = pygame.font.SysFont('impact', 30, False, False)
 
@@ -118,22 +117,22 @@ spriteset3 = ["BasicSpriteSheet02.png",
                 ["aaa","aaa","aaa","aaa"],
                 ["aaa","aaa","aba","aba"],
                 ["aaa","aba","aba","aba"],
-                ["aaa","xxx","aaa","aba"]
+                ["aaa","aba","aaa","aba"],
                 ]
             ]
 
 # Create spritesheet and get all tile images in an array ("images")
-ss = spritesheet.spritesheet(spriteset2[0])
-image = ss.images_at(spriteset2[1])
+ss = spritesheet.spritesheet(spriteset3[0])
+image = ss.images_at(spriteset3[1])
 
 # Process the tiles extracted in the previous step in order to get rotated variants.
-testDataStruct = gen.Processing(image,spriteset2[2])
+testDataStruct = gen.Processing(image,spriteset3[2])
 # For testing: print the connections
 for d in testDataStruct:
     print(d.passConnects())
 
 # Generate the map.
-map = gen.Generation(testDataStruct,(width,height),32)
+map = gen.NewGeneration(testDataStruct,(width,height),32)
 # Timing parameters.
 # Gamestate updates occur once per frame.
 fps = 60
