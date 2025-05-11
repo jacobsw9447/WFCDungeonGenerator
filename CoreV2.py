@@ -5,8 +5,6 @@
 # [ ] Draw method to draw on screen with the array return from Generator.py
 # [ ] Update method to update screen with potential updates from the generator file or other code
 
-# [ ] Code to make me a sandwich (OPTIONAL BUT HIGHLY RECOMMENDED)
-
 import pygame
 from pygame.math import Vector2
 from pygame.locals import *
