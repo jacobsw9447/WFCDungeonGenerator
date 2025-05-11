@@ -39,8 +39,8 @@ class Tile:
         return grid
 
     #Returns the image associated with the tile.
-    def image():
-        return image
+    def image(self):
+        return self.image
 
     # 
     # RETURNS
