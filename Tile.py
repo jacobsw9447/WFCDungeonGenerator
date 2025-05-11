@@ -19,12 +19,26 @@ class Tile:
     #                   Single node connected to all other nodes (? maybe change to entire list)
     # PARAMETERS
     #   length, height:  Dimensions.
-    def create_grid(length, height):
+    def create_grid(self, length, height):
         # Create a 2D list to hold the nodes
-        grid = [[Tile(None, None, None, None) for _ in range(height)] for _ in range(length)]
-        # ... connect pointers
+        grid = [[Tile() for j in range(height)] for i in range(length)]
+        
+        for j in range(height):
+            for i in range(length):
+
+                # Connect all pointers
+                if (i > 0):
+                    grid[i][j].left = grid[i-1][j]
+                if (i < length - 1):
+                    grid[i][j].right = grid[i+1][j]
+                if (j > 0):
+                    grid[i][j].up = grid[i][j-1]
+                if (j < height - 1):
+                    grid[i][j].down = grid[i][j+1]
+
         return grid
 
+    #Returns the image associated with the tile.
     def image():
         return image
 

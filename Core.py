@@ -59,8 +59,8 @@ def mapDraw(window, mapArray, tileData, tileSize):
     height, width = 0,0
     for line in mapArray:
         for block in line:
-            if block != -1:
-                window.blit(tileData[block].passImage(), Vector2(width, height))
+            if block != None and block.collapsed == True:
+                window.blit(tileData[block.image].passImage(), Vector2(width, height))
                 width+=tileSize
         height+=tileSize
         width = 0
@@ -116,7 +116,7 @@ spriteset3 = ["BasicSpriteSheet02.png",
                 ["aaa","aaa","aaa","aaa"],
                 ["aaa","aaa","aba","aba"],
                 ["aaa","aba","aba","aba"],
-                ["aaa","xxx","aaa","aba"]
+                ["aaa","aba","aaa","aba"],
                 ]
             ]
 
@@ -131,7 +131,7 @@ for d in testDataStruct:
     print(d.passConnects())
 
 # Generate the map.
-map = gen.Generation(testDataStruct,(width,height),32)
+map = gen.NewGeneration(testDataStruct,(width,height),32)
 # Timing parameters.
 # Gamestate updates occur once per frame.
 fps = 60
