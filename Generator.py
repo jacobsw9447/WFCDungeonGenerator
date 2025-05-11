@@ -66,7 +66,7 @@ def Processing(images, dataTable):
 # PARAMETERS : ImageData(dictionary of SpriteHolder Objects)
 def Generation(data, screen, tileSize):
     forcedeath = False
-    random.seed(3)  #random seed used for testing.
+    #random.seed(3)  #random seed used for testing.
     # sets the ammound of tiles for the screen size
     tiles = (int(screen[0]/tileSize),int(screen[1]/tileSize))
     # initiates the map of integers
@@ -80,13 +80,15 @@ def Generation(data, screen, tileSize):
     # variable for map height
     mapHeight = map.__len__()
     i = 0
+    previousStop = (0,0)
+    cycles = 0
     while i<mapHeight:
         if forcedeath: break
         #variable for map width
         mapWidth = map[i].__len__()
         j=0
         while j<mapWidth: # horizontal = j
-            print("Starto J loop")
+            #print("Starto J loop")
             if forcedeath: break
           # check to see if at edge of map/out of range on looks
             #sets a default value for all faces
@@ -129,12 +131,33 @@ def Generation(data, screen, tileSize):
                 # if it is a possible solution for the tile put it in the potential tile list
                 if match:
                     possibleData.append(iterD)
-            print(possibleData)
+            #print(possibleData)
             # randomly select a tile out of the potentials and put the index in the map
             if possibleData.__len__()>0:
                 randomindex = random.randint(0,possibleData.__len__()-1)
-                print(possibleData[randomindex])
+                #print(str(possibleData[randomindex]) +"("+ str(i) + "," +str(j)+")")
                 map[i][j] = copy.deepcopy(possibleData[randomindex])
+            else:
+                tempI=0
+                tempJ=0
+                if previousStop == (i,j):
+                    cycles+=1
+                if j==0 and i>1:
+                    tempI, tempJ = i - 2, j
+                elif i<2 or previousStop == (i,j) and cycles == 5:
+                    tempI, tempJ = 0, 0
+                    cycles = 0
+                else:
+                    tempI, tempJ = i - 1, j - 1
+                previousStop = (i,j)
+                while i>=tempI:
+                    while (0<tempJ and i>tempI) or (i==tempI and j>tempJ):
+                        map[i][j] = -1
+                        j-=1
+                        if j==0:
+                            break
+                    j = map[i].__len__()-1
+                    i-=1
             j+=1
         i+=1
     # return the index map

@@ -72,7 +72,7 @@ def mapDraw(window, mapArray, tileData, tileSize):
 #-------------------------------START OF GAMELOOP CODE-----------------------------------------------------------
 # Set basic parameters and initalize PyGame.
 pygame.init()
-width, height = 1000,800
+width, height = 513,513
 window = pygame.display.set_mode([width, height])
 font = pygame.font.SysFont('impact', 30, False, False)
 
