@@ -24,7 +24,7 @@ def get_data(data):
     importedInfo = data
 
 #checks if there is continuity between the faces and prints an error message
-def tester(s1,s2,dir):
+def errorprinter(s1,s2,dir):
     if s1 != s2:
         print(dir+ ": " +s1 + " is not equal to " +s2)
 
@@ -65,6 +65,7 @@ def Processing(images, dataTable):
 # RETURNS : 2-D array of integers associated with sprites
 # PARAMETERS : ImageData(dictionary of SpriteHolder Objects)
 def Generation(data, screen, tileSize):
+    forcedeath = False
     random.seed(3)  #random seed used for testing.
     # sets the ammound of tiles for the screen size
     tiles = (int(screen[0]/tileSize),int(screen[1]/tileSize))
@@ -78,10 +79,15 @@ def Generation(data, screen, tileSize):
             map[t].append(-1)
     # variable for map height
     mapHeight = map.__len__()
-    for i in range(mapHeight): # vertical = i
+    i = 0
+    while i<mapHeight:
+        if forcedeath: break
         #variable for map width
         mapWidth = map[i].__len__()
-        for j in range(map[i].__len__()): # horizontal = j
+        j=0
+        while j<mapWidth: # horizontal = j
+            print("Starto J loop")
+            if forcedeath: break
           # check to see if at edge of map/out of range on looks
             #sets a default value for all faces
             requirements = ["!!!","!!!","!!!","!!!"]
@@ -123,10 +129,28 @@ def Generation(data, screen, tileSize):
                 # if it is a possible solution for the tile put it in the potential tile list
                 if match:
                     possibleData.append(iterD)
+            print(possibleData)
             # randomly select a tile out of the potentials and put the index in the map
             if possibleData.__len__()>0:
-                map[i][j] = copy.deepcopy(possibleData[random.randint(0,possibleData.__len__()-1)])
-            if j>0:
-                tester(data[map[i][j]].passConnects()[3],data[map[i][j-1]].passConnects()[1],"Left")
+                randomindex = random.randint(0,possibleData.__len__()-1)
+                print(possibleData[randomindex])
+                map[i][j] = copy.deepcopy(possibleData[randomindex])
+                if j>0:
+                    newI = i
+                    errorprinter(data[map[i][j]].passConnects()[3],data[map[i][j-1]].passConnects()[1],"Left")
+                    if j>0 and i>0:
+                        newI-=1
+                    elif i>1:
+                        NewI-=2
+                    if newI!=i:
+                        while i>newI:
+                            pass
+            else: 
+                map[i][j] = -1
+                #forcedeath = True
+            print("Endo J loop")
+            j+=1
+        i+=1
     # return the index map
+    print(map)
     return map
