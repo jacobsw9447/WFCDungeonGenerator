@@ -135,22 +135,9 @@ def Generation(data, screen, tileSize):
                 randomindex = random.randint(0,possibleData.__len__()-1)
                 print(possibleData[randomindex])
                 map[i][j] = copy.deepcopy(possibleData[randomindex])
-                if j>0:
-                    newI = i
-                    errorprinter(data[map[i][j]].passConnects()[3],data[map[i][j-1]].passConnects()[1],"Left")
-                    if j>0 and i>0:
-                        newI-=1
-                    elif i>1:
-                        NewI-=2
-                    if newI!=i:
-                        while i>newI:
-                            pass
-            else: 
-                map[i][j] = -1
-                #forcedeath = True
-            print("Endo J loop")
             j+=1
         i+=1
     # return the index map
+    print("Printing map!!\n")
     print(map)
     return map
