@@ -12,7 +12,7 @@ class Tile:
         self.right = right
 
         self.collapsed = False
-        self.image = 0
+        self.image = -1
     
     # create_grid  -   Set up a grid of tile nodes
     # RETURNS
@@ -23,18 +23,19 @@ class Tile:
         # Create a 2D list to hold the nodes
         grid = [[Tile() for j in range(height)] for i in range(length)]
         
+        #Connect the nodes so that they may be indexed easily relative to any tile
         for j in range(height):
             for i in range(length):
 
                 # Connect all pointers
                 if (i > 0):
-                    grid[i][j].left = grid[i-1][j]
+                    grid[i][j].up = grid[i-1][j]
                 if (i < length - 1):
-                    grid[i][j].right = grid[i+1][j]
+                    grid[i][j].down = grid[i+1][j]
                 if (j > 0):
-                    grid[i][j].up = grid[i][j-1]
+                    grid[i][j].left = grid[i][j-1]
                 if (j < height - 1):
-                    grid[i][j].down = grid[i][j+1]
+                    grid[i][j].right = grid[i][j+1]
 
         return grid
 

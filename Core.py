@@ -59,8 +59,8 @@ def mapDraw(window, mapArray, tileData, tileSize):
     height, width = 0,0
     for line in mapArray:
         for block in line:
-            if block != -1:
-                window.blit(tileData[block].passImage(), Vector2(width, height))
+            if block.image != -1:
+                window.blit(tileData[block.image].passImage(), Vector2(width, height))
                 width+=tileSize
             else:
                 width+=tileSize
