@@ -8,6 +8,7 @@ import pygame
 from pygame.math import Vector2
 from pygame.locals import *
 import math
+import Tile
 import SpriteHolder
 import random
 import copy
@@ -69,14 +70,10 @@ def Generation(data, screen, tileSize):
     #random.seed(3)  #random seed used for testing.
     # sets the ammound of tiles for the screen size
     tiles = (int(screen[0]/tileSize),int(screen[1]/tileSize))
-    # initiates the map of integers
-    map = []
-    #Generate the map size for the size of the screen/sprite size
-    for t in range(tiles[1]):
-        map.append([])
-        for s in range(tiles[0]):
-            #default is -1 for all cells
-            map[t].append(-1)
+
+    # initiates the map of Tiles
+    map = Tile.Tile().create_grid(screen[0]//tileSize, screen[1]//tileSize)
+
     # variable for map height
     mapHeight = map.__len__()
     i = 0
@@ -93,26 +90,32 @@ def Generation(data, screen, tileSize):
           # check to see if at edge of map/out of range on looks
             #sets a default value for all faces
             requirements = ["!!!","!!!","!!!","!!!"]
+
+            up = map[i][j].up
+            down = map[i][j].down
+            left = map[i][j].left
+            right = map[i][j].right
+
             #look up for top face requirement
-            if i>0:
-                check = map[i-1][j]
-                if check != -1:
-                    requirements[0] = copy.deepcopy(data[check].passConnects()[2])
+            if up != None and up.image != -1:
+                if up != -1:
+                    requirements[0] = copy.deepcopy(data[up.image].passConnects()[2])
+
             # look down for bottom face requirement
-            if i+1<mapHeight:
-                check = map[i+1][j]
-                if check != -1:
-                    requirements[2] = copy.deepcopy(data[check].passConnects()[0])
+            if down != None and down.image != -1:
+                if down != -1:
+                    requirements[2] = copy.deepcopy(data[down.image].passConnects()[0])
+
             # look left for left face requirement
-            if j>0:
-                check = map[i][j-1]
-                if check != -1:
-                    requirements[3] = copy.deepcopy(data[check].passConnects()[1])
+            if left != None and left.image != -1:
+                if left != -1:
+                    requirements[3] = copy.deepcopy(data[left.image].passConnects()[1])
+
             # look right for right face requirement
-            if j+1<mapWidth:
-                check = map[i][j+1]
-                if check != -1:
-                    requirements[1] = copy.deepcopy(data[check].passConnects()[3])
+            if right != None and right.image != -1:
+                if right != -1:
+                    requirements[1] = copy.deepcopy(data[right.image].passConnects()[3])
+                    
             # iterator for the list of all tiles
             iterD = -1
             #list of potential tiles
@@ -136,7 +139,7 @@ def Generation(data, screen, tileSize):
             if possibleData.__len__()>0:
                 randomindex = random.randint(0,possibleData.__len__()-1)
                 #print(str(possibleData[randomindex]) +"("+ str(i) + "," +str(j)+")")
-                map[i][j] = copy.deepcopy(possibleData[randomindex])
+                map[i][j].image = copy.deepcopy(possibleData[randomindex])
             else:
                 tempI=0
                 tempJ=0
@@ -152,7 +155,7 @@ def Generation(data, screen, tileSize):
                 previousStop = (i,j)
                 while i>=tempI:
                     while (0<tempJ and i>tempI) or (i==tempI and j>tempJ):
-                        map[i][j] = -1
+                        map[i][j].image = -1
                         j-=1
                         if j==0:
                             break
